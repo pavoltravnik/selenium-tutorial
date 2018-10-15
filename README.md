@@ -60,3 +60,39 @@ Open cmd:
 `java -jar selenium-server-standalone-3.14.0.jar -role hub`
 
 `java -jar selenium-server-standalone-3.14.0.jar -role node  -hub http://localhost:4444/grid/register`
+
+
+## Puppeteer
+
+Puppeteer is a Node library which provides a high-level API to control Chrome or Chromium over the DevTools Protocol. Puppeteer runs headless by default, but can be configured to run full (non-headless) Chrome or Chromium.
+
+Official github page - [https://github.com/GoogleChrome/puppeteer](https://github.com/GoogleChrome/puppeteer)
+
+### Install Node.js
+
+[https://nodejs.org/en/](https://nodejs.org/en/)
+
+### Install puppeteer
+
+`npm i puppeteer`
+
+### Example example.js
+
+Create file example.js
+
+```javascript
+const puppeteer = require('puppeteer');
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto('https://example.com');
+  await page.screenshot({path: 'example.png'});
+
+  await browser.close();
+})();
+```
+
+### Run puppeteer
+
+`node example.js`
