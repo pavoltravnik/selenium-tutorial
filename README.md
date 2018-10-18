@@ -38,13 +38,18 @@ Direct link - [https://chromedriver.storage.googleapis.com/index.html?path=2.42/
 import time
 from selenium import webdriver
 
-driver = webdriver.Chrome('C:/Users/tester/Downloads/chromedriver.exe')
-driver.get('http://www.google.com/xhtml');
-time.sleep(5)
-search_box = driver.find_element_by_name('q')
-search_box.send_keys('ChromeDriver')
+driver = webdriver.Chrome('C:/Users/tester/Downloads/chromedriver.exe')  # Optional argument, if not specified will search path.
+driver.get('http://www.softec.sk');
+time.sleep(3) # Let the user actually see something!
+search_icon = driver.find_element_by_class_name('icon-search')
+search_icon.click()
+time.sleep(3) # Let the user actually see something!
+search_box = driver.find_element_by_class_name('search-field')
+search_box.send_keys('umelá inteligencia')
 search_box.submit()
-time.sleep(5)
+time.sleep(3) # Let the user actually see something!
+search_box = driver.find_element_by_xpath('//h2[1]/a[@title="Umelá inteligencia sa už stáva doménou finančných služieb"]')
+driver.close()
 driver.quit()
 ```
 
@@ -86,11 +91,18 @@ const puppeteer = require('puppeteer');
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto('https://example.com');
-  await page.screenshot({path: 'example.png'});
-
+  await page.setViewport({ width: 1280, height: 800 })
+  await page.goto('https://softec.sk');
+  await page.waitFor(2000);
+  await page.click('#site-navigation > button.search-toggle > span > svg');
+  await page.waitFor(2000);
+  await page.type('#main-search-form > div > label > input', 'umelá inteligencia', {delay: 100});
+  await page.waitFor(2000);
+  await page.click('#main-search-form > div > button.search-submit > span > svg');
+  await page.screenshot({path: 'softec.png'});
   await browser.close();
 })();
+
 ```
 
 ### Run puppeteer
